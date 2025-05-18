@@ -13,7 +13,13 @@
 					"type": "noauth"
 				},
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "useInFile",
+						"value": "true",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
@@ -33,39 +39,6 @@
 					"port": "8080",
 					"path": [
 						"import"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "import csv file using local infile",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "file",
-							"type": "file",
-							"src": "/C:/Users/junqu/OneDrive/Desktop/game sales/game_sales_1_000_000.csv"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8080/import/infile",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"import",
-						"infile"
 					]
 				}
 			},

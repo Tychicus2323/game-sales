@@ -6,8 +6,7 @@ This project implements the tasks from the **Backend Engineer Coding Test** usin
 
 The project exposes the following RESTful API endpoints:
 
-- **POST** `/import`: Imports data from a CSV file into the MySQL database with batch processing.
-- **POST** `/import/inline`: Imports data from a CSV file using the `LOAD DATA LOCAL INFILE` feature (for Task 5).
+- **POST** `/import`: Imports data from a CSV file into the MySQL database with batch processing or using the `LOAD DATA LOCAL INFILE` feature (for Task 5).
 - **GET** `/getGameSales`: Retrieves a list of game sales based on provided filters (date or sales price) with pagination support.
 - **GET** `/getTotalSales`: Retrieves the total game sales based on provided filters (date or game number).
 
@@ -70,7 +69,6 @@ To get the project up and running locally:
     Optionally, use **Postman** or any other API testing tool to test the endpoints:
     
     - **POST** `/import` - Upload a CSV file to import game sales data.
-    - **POST** `/import/inline` - Upload a CSV file using the `LOAD DATA LOCAL INFILE` method.
     - **GET** `/getGameSales` - Retrieve paginated game sales based on filters.
     - **GET** `/getTotalSales` - Retrieve total sales based on filters.
 
@@ -78,15 +76,19 @@ To get the project up and running locally:
 
 ### Import Game Sales Data
 
-You can import game sales data by sending a CSV file to the `/import` or `/import/inline` endpoints. Example using **Postman**:
+You can import game sales data by sending a CSV file to the `/import` endpoints. Example using **Postman**:
 
 - **POST** `/import`
-    - Upload the CSV file.
-    - This method uses batch processing to insert data efficiently.
+- **Content-Type:** `multipart/form-data`
+- **Headers:**
+  - `useInFile` (optional, boolean):  
+    Set to `true` to enable [`LOAD DATA LOCAL INFILE`](https://dev.mysql.com/doc/refman/8.0/en/load-data.html) for faster data insertion.  
+    Defaults to `false` if not provided.
 
-- **POST** `/import/inline`
-    - Upload the CSV file.
-    - This method uses the `LOAD DATA LOCAL INFILE` feature for faster data insertion.
+### Body Parameters
+
+- `file` (required):  
+  The CSV file to upload. Must be included as a `multipart/form-data` field named `file`.
 
 ### Retrieve Game Sales
 

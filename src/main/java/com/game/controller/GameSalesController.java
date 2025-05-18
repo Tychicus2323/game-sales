@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,10 +51,16 @@ public class GameSalesController {
 	private static boolean enableBatchInsert = true;
 
 	@PostMapping("/import")
-	public ResponseEntity<String> importCsv(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> importCsv(
+			@RequestParam("file") MultipartFile file,
+			@RequestHeader(name = "useInFile", required = false, defaultValue = "false") boolean useInFile
+			) {
 		log.info("importCsv start");
 		if (file.isEmpty()) {
 			return ResponseEntity.badRequest().body("File is empty");
+		}
+		if (useInFile) {
+			return importCsvUsingLocalInFile(file);
 		}
 		if (enableBatchInsert) {
 			log.info("importCsv using batch");
@@ -68,8 +75,7 @@ public class GameSalesController {
 		}
 	}
 
-	@PostMapping("/import/infile")
-	public ResponseEntity<String> importCsvUsingLocalInFile(@RequestParam("file") MultipartFile file) {
+	private ResponseEntity<String> importCsvUsingLocalInFile(@RequestParam("file") MultipartFile file) {
 		log.info("importCsvUsingLocalInFile start");
 		try {
 			File tempFile = File.createTempFile("gamesales_", ".csv"); //Save the uploaded file to a temp location
@@ -99,7 +105,7 @@ public class GameSalesController {
 		Specification<GameSales> spec = GameSalesSpecification.filter(fromDate, toDate, minPrice, maxPrice);
 		Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
 		Page<GameSalesDto> gameSalesPage = gameSalesService.getAllGamesSalesFromDb(spec, pageable);
-		 log.info("gameSalesList size: {}", gameSalesPage.getContent().size());
+		log.info("gameSalesList size: {}", gameSalesPage.getContent().size());
 		return ResponseEntity.ok(gameSalesPage);
 	}
 
