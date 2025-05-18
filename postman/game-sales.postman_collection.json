@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "9137e294-649a-4e3e-8a34-8a6fd5fa7ede",
+		"name": "gameSales",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41918002"
+	},
+	"item": [
+		{
+			"name": "import csv file",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/junqu/OneDrive/Desktop/game sales/game_sales_1_000_000.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/import",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"import"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "import csv file using local infile",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/junqu/OneDrive/Desktop/game sales/game_sales_1_000_000.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/import/infile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"import",
+						"infile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getGameSales",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getGameSales?page=0&size=100&maxPrice=10.0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getGameSales"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "100"
+						},
+						{
+							"key": "fromDate",
+							"value": "2023-01-01 00:00:00",
+							"disabled": true
+						},
+						{
+							"key": "toDate",
+							"value": "2024-07-02 00:00:00",
+							"disabled": true
+						},
+						{
+							"key": "minPrice",
+							"value": "23",
+							"disabled": true
+						},
+						{
+							"key": "maxPrice",
+							"value": "10.0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTotalSales",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/getTotalSales?fromDate=2023-01-01 00:00:00&toDate=2025-07-02 00:00:00",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"getTotalSales"
+					],
+					"query": [
+						{
+							"key": "fromDate",
+							"value": "2023-01-01 00:00:00"
+						},
+						{
+							"key": "toDate",
+							"value": "2025-07-02 00:00:00"
+						},
+						{
+							"key": "gameNo",
+							"value": "53",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
