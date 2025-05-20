@@ -72,7 +72,12 @@ To get the project up and running locally:
     - **GET** `/getGameSales` - Retrieve paginated game sales based on filters.
     - **GET** `/getTotalSales` - Retrieve total sales based on filters.
 
-## Usage
+### Database Scripts
+
+The project includes two SQL scripts located in the `dbscripts/` directory:
+
+- `csv_import_info.sql`: Tracks the progress of imported CSV files.
+- `game_sales.sql`: Stores all game sales data.
 
 ### Import Game Sales Data
 
